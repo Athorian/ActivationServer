@@ -9,7 +9,7 @@ init_db()
 
 @app.route("/activate", methods=["POST"])
 def activate():
-    data = request.get_json(silent=True) or {}
+    data = request.get_json(force=True, silent=True) or {}
     license_key = data.get("license_key")
     machine_id = data.get("machine_id")
 

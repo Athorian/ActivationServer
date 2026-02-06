@@ -11,7 +11,9 @@ init_db()
 @app.route("/activate", methods=["POST"])
 def activate():
     data = request.get_json(force=True, silent=True) or {}
-    license_key = data.get("license_key")
+
+    # Harmonisation : on utilise "key" comme dans le keygen et le client
+    license_key = data.get("key")
     machine_id = data.get("machine_id")
 
     if not license_key or not machine_id:

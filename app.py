@@ -2,7 +2,6 @@
 from flask import Flask, request, jsonify, send_file
 from db import init_db, get_license, update_license_activation, set_license_status, create_license
 import license_core   # Vérification cryptographique
-import os
 
 app = Flask(__name__)
 
@@ -69,20 +68,11 @@ def revoke_key(license_key):
 
 
 # ---------------------------------------------------------
-# 🔥 Route temporaire pour connaître le chemin réel de la DB
-# ---------------------------------------------------------
-@app.route("/debug-path")
-def debug_path():
-    return os.path.abspath("licenses.db")
-
-
-# ---------------------------------------------------------
-# 🔥 Route pour télécharger la vraie base Render
+# 🔥 AJOUT MINIMAL : route pour télécharger licenses.db
 # ---------------------------------------------------------
 @app.route("/licenses.db", methods=["GET"])
 def download_db():
-    real_path = os.path.abspath("licenses.db")
-    return send_file(real_path, as_attachment=True)
+    return send_file("licenses.db", as_attachment=True)
 
 
 if __name__ == "__main__":

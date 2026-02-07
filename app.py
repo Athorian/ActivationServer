@@ -73,6 +73,15 @@ def revoke_key(license_key):
     set_license_status(license_key, "revoked")
     return jsonify({"status": "OK", "license_key": license_key, "new_status": "revoked"})
 
+@app.route("/debug/licenses")
+def debug_licenses():
+    import sqlite3
+    conn = sqlite3.connect("licenses.db")
+    cur = conn.cursor()
+    rows = cur.execute("SELECT license_key, max_activations FROM licenses").fetchall()
+    conn.close()
+    return {"licenses": rows}
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)

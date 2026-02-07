@@ -68,11 +68,11 @@ def revoke_key(license_key):
 
 
 # ---------------------------------------------------------
-# 🔥 AJOUT MINIMAL : route pour télécharger licenses.db
+# 🔥 Route pour télécharger la vraie base Render
 # ---------------------------------------------------------
 @app.route("/licenses.db", methods=["GET"])
 def download_db():
-    return send_file("licenses.db", as_attachment=True)
+    return send_file("/opt/render/project/src/licenses.db", as_attachment=True)
 
 
 if __name__ == "__main__":
